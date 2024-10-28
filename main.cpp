@@ -37,3 +37,51 @@ int main() {
     return 0;
 }
 
+int main_menu() {
+    int choice;
+    cout << "\n*** GOAT MANAGER 3001 ***\n";
+    cout << "[1] Add a goat\n";
+    cout << "[2] Delete a goat\n";
+    cout << "[3] List goats\n";
+    cout << "[4] Quit\n";
+    cout << "Choice --> ";
+    cin >> choice;
+    return choice;
+}
+
+void add_goat(list<Goat> &trip, string names[], string colors[]) {
+    string name = names[rand() % SZ_NAMES];
+    string color = colors[rand() % SZ_COLORS];
+    int age = rand() % (MA
+}
+
+void delete_goat(list<Goat> &trip) {
+    if (trip.empty()) {
+        cout << "No goats to delete!\n";
+        return;
+    }
+    int index = select_goat(trip);
+    if (index == -1) return;  // User canceled
+
+    auto it = trip.begin();
+    advance(it, index);
+    cout << "Deleted: ";
+    it->display();
+    cout << "\n";
+    trip.erase(it);
+}
+
+// Function to display all goats in the trip
+void display_trip(const list<Goat> &trip) {
+    if (trip.empty()) {
+        cout << "No goats in the trip!\n";
+        return;
+    }
+    cout << "\nCurrent Trip:\n";
+    int index = 1;
+    for (const auto &goat : trip) {
+        cout << "[" << index++ << "] ";
+        goat.display();
+        cout << "\n";
+    }
+}
