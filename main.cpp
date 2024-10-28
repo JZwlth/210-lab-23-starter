@@ -16,21 +16,22 @@ void display_trip(const list<Goat> &trip);
 int main_menu();
 
 int main() {
-    srand(time(0));
-    bool again;
+    srand(time(0));  // Seed the random number generator
+    bool again = true;
+    list<Goat> trip;
 
-    // read & populate arrays for names and colors
+    // Read & populate arrays for names and colors
     ifstream fin("names.txt");
     string names[SZ_NAMES];
     int i = 0;
     while (fin >> names[i++]);
     fin.close();
+
     ifstream fin1("colors.txt");
     string colors[SZ_COLORS];
     i = 0;
     while (fin1 >> colors[i++]);
     fin1.close();
-
 
     // GM3K1 Engine Loop
     while (again) {
@@ -47,12 +48,10 @@ int main() {
                 cout << "Invalid choice! Please try again.\n";
         }
     }
-
-
-
     return 0;
 }
 
+// Main menu function
 int main_menu() {
     int choice;
     cout << "\n*** GOAT MANAGER 3001 ***\n";
@@ -65,12 +64,20 @@ int main_menu() {
     return choice;
 }
 
+// Function to add a goat to the trip
 void add_goat(list<Goat> &trip, string names[], string colors[]) {
     string name = names[rand() % SZ_NAMES];
     string color = colors[rand() % SZ_COLORS];
-    int age = rand() % (MA
+    int age = rand() % (MAX_AGE + 1);  // Random age between 0 and MAX_AGE
+
+    Goat new_goat(name, age, color);
+    trip.push_back(new_goat);
+    cout << "Added: ";
+    new_goat.display();
+    cout << "\n";
 }
 
+// Function to delete a goat from the trip
 void delete_goat(list<Goat> &trip) {
     if (trip.empty()) {
         cout << "No goats to delete!\n";
