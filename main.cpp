@@ -32,6 +32,22 @@ int main() {
     fin1.close();
 
 
+    // GM3K1 Engine Loop
+    while (again) {
+        int choice = main_menu();
+        switch (choice) {
+            case 1: add_goat(trip, names, colors); break;
+            case 2: delete_goat(trip); break;
+            case 3: display_trip(trip); break;
+            case 4: 
+                cout << "Exiting... Goodbye!\n";
+                again = false;
+                break;
+            default: 
+                cout << "Invalid choice! Please try again.\n";
+        }
+    }
+
 
 
     return 0;
@@ -84,4 +100,19 @@ void display_trip(const list<Goat> &trip) {
         goat.display();
         cout << "\n";
     }
+}
+
+// Function to select a goat from the list
+int select_goat(list<Goat> &trip) {
+    display_trip(trip);
+    cout << "Select a goat by number (0 to cancel): ";
+    int choice;
+    cin >> choice;
+    if (choice == 0) return -1;  // Cancel operation
+
+    if (choice < 1 || choice > trip.size()) {
+        cout << "Invalid selection!\n";
+        return -1;
+    }
+    return choice - 1;  // Convert to 0-based index
 }
